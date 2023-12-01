@@ -40,4 +40,8 @@ class InvoiceController {
     fun updateName (@RequestBody modelo: InvoiceModel): ResponseEntity<InvoiceModel> {
         return ResponseEntity(modeloService.updateName(modelo), HttpStatus.OK)
     }
+    @GetMapping("/filter-total/{value}")
+    fun listTotals (@PathVariable("value") value: Double ):ResponseEntity<*>{
+        return ResponseEntity(modeloService.filterTotal(value), HttpStatus.OK)
+    }
 }

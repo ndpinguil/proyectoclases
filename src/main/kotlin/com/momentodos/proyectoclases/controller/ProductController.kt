@@ -40,4 +40,8 @@ class ProductController {
     fun updateName (@RequestBody modelo: ProductModel): ResponseEntity<ProductModel> {
         return ResponseEntity(modeloService.updateName(modelo), HttpStatus.OK)
     }
+    /*codigo para mostrar la lista del dto en ell controller*/
+    fun listDto(): ResponseEntity<*>{
+        return ResponseEntity(modeloService.listDto(), HttpStatus.OK)
+    }
 }

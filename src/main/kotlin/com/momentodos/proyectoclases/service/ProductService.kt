@@ -1,5 +1,7 @@
 package com.momentodos.proyectoclases.service
 
+import com.momentodos.proyectoclases.DTO.ProductDto
+import com.momentodos.proyectoclases.mapper.ProductMapper
 import com.momentodos.proyectoclases.model.ProductModel
 import com.momentodos.proyectoclases.repository.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +17,6 @@ class ProductService {
     fun list ():List<ProductModel>{
         return modeloRepository.findAll()
     }
-
     fun save(modelo: ProductModel): ProductModel {
         try{
 
@@ -70,5 +71,16 @@ class ProductService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
+    }
+    /*Codigo producto dto*/
+    fun listDto():List <ProductDto> {
+        val ProductList = modeloRepository.findAll()
+        val productDtolist = mutableListOf<ProductDto>()
+        ProductList.map{ product->
+            val productDto =ProductMapper.mapToDto((product))
+        }
+       /* val ProductDto = ProductMapper.mapToDto(product)*/
+      /*  productDtolist.add(ProductDto)*/
+        return productDtolist
     }
 }

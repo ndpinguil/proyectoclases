@@ -11,7 +11,7 @@ class InvoiceModel {
     var id  : Long? = null
     var code: String? = null
     var create_at: String? = null
-    var total: String? = null
+    var total: Float? = null
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     var cliente: ClientModel?=null

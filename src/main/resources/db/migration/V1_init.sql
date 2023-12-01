@@ -10,7 +10,7 @@ CREATE TABLE Client (
 CREATE TABLE Invoice (
     id INT PRIMARY KEY,
     code VARCHAR(50) UNIQUE,
-    create_at DATE TIME,
+    create_at DATE  TIME,
     total DECIMAL(10, 2),
     client_id INT,
     FOREIGN KEY (client_id) REFERENCES Client(id)

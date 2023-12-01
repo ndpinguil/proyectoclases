@@ -1,6 +1,7 @@
 package com.momentodos.proyectoclases.service
 
 import com.momentodos.proyectoclases.model.InvoiceModel
+import com.momentodos.proyectoclases.model.ClientModel
 import com.momentodos.proyectoclases.repository.InvoiceRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -69,5 +70,25 @@ class InvoiceService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
+    }
+
+    private fun validateInvoiceModel (invoiceModel: InvoiceModel) {
+        invoiceModel.apply {
+            code?.takeIf { it.trim().isNotEmpty() }
+                ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "El código de la factura no debe ser nulo o vacío")
+
+            create_at?.takeIf { it.trim().isNotEmpty() }
+                ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de creación no debe ser nula o vacía")
+
+            total?.takeIf { it >= 0 }
+                ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "El total de la factura no debe ser negativo")
+        }
+    }
+
+    /*fun listByTotal(value: Double): List<InvoiceModel>{ // Definir el SQL nativo - Ejemplo Factura
+        return invoiceRepository.findAll()
+    }*/
+    fun filterTotal(value:Double?): List<InvoiceModel>? {
+        return modeloRepository.filterTotal(value)
     }
 }
